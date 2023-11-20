@@ -124,7 +124,9 @@ class VideoStreamer:
             self.listing = range(0, self.max_length)
         elif basedir.startswith(('http', 'rtsp')):
             print('==> Processing IP camera input: {}'.format(basedir))
-            self.cap = cv2.VideoCapture(basedir)
+            # self.cap = cv2.VideoCapture(basedir)
+            self.cap = cv2.VideoCapture(0,basedir)
+
             self.start_ip_camera_thread()
             self._ip_camera = True
             self.listing = range(0, self.max_length)
@@ -143,7 +145,8 @@ class VideoStreamer:
             self.camera = False
         elif Path(basedir).exists():
             print('==> Processing video input: {}'.format(basedir))
-            self.cap = cv2.VideoCapture(basedir)
+            # self.cap = cv2.VideoCapture(basedir)
+            self.cap = cv2.VideoCapture(0,basedir)
             self.cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
             num_frames = int(self.cap.get(cv2.CAP_PROP_FRAME_COUNT))
             self.listing = range(0, num_frames)
